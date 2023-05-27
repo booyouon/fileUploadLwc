@@ -1,27 +1,53 @@
 <template>
   <lightning-card title="Custom File Upload">
     <div class="slds-var-p-around_medium">
-      <div class="slds-form-element">
-        <!--<label class="slds-form-element__label" for="fileInput"
-          >Choose File</label
-        >-->
-        <div class="slds-form-element__control">
-          <input
-            type="file"
-            id="fileInput"
-            accept={acceptedFormats}
-            onchange={handleFileChange}
-          />
+      <div class="slds-form-element upload-input">
+        <div class="file-details">
+          <template if:true={file}>
+            <lightning-input
+              label="Input Field"
+              value={file.name}
+              disabled
+            ></lightning-input>
+          </template>
+          <template if:false={file}>
+            <lightning-input
+              label="Input Field"
+              value=""
+              disabled
+            ></lightning-input>
+          </template>
+          <div>
+            <label class="slds-form-element__label" for="fileInput">
+              <lightning-icon
+                class="slds-icon slds-icon-text-default slds-icon_x-small slds-m-left_x-small"
+                icon-name="utility:opened_folder"
+                alternative-text="Upload File"
+              ></lightning-icon
+            ></label>
+            <lightning-icon
+              class="slds-icon slds-icon-text-default slds-icon_x-small slds-m-left_x-small"
+              icon-name="utility:delete"
+              alternative-text="Remove File"
+              onclick={handleRemoveFile}
+            >
+            </lightning-icon>
+          </div>
         </div>
+        <input
+          type="file"
+          id="fileInput"
+          accept={acceptedFormats}
+          onchange={handleFileChange}
+        />
       </div>
-      <!--<template if:true={file}>
-              <div class="slds-m-top_medium">
-                  <span class="slds-text-title_bold">File Name: </span>{file.name}
-              </div>
-              <div class="slds-m-top_medium">
-                  <span class="slds-text-title_bold">File Size: </span>{file.size}
-              </div>
-          </template>-->
+      <div class="slds-m-top_medium">
+        <lightning-button
+          label="Save File"
+          variant="brand"
+          onclick={handleSaveFile}
+        ></lightning-button>
+      </div>
     </div>
   </lightning-card>
 </template>

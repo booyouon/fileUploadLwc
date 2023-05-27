@@ -1,0 +1,40 @@
+<template>
+  <lightning-card title="File Uploader">
+    <div class="slds-form-element">
+      <div class="slds-form-element__control">
+        <div class="file-input-container">
+          <label for="fileInput" class="slds-button slds-button_neutral">
+            <lightning-icon
+              icon-name="utility:folder"
+              size="small"
+            ></lightning-icon>
+            Choose File
+          </label>
+          <input
+            type="file"
+            id="fileInput"
+            onchange={handleFileChange}
+            accept={allowedFormats}
+          />
+        </div>
+        <div class="file-details">
+          <lightning-input
+            type="text"
+            label="Selected File"
+            value={fileName}
+            disabled
+          ></lightning-input>
+          <lightning-button-icon
+            icon-name="utility:delete"
+            alternative-text="Delete"
+            variant="bare"
+            size="small"
+            title="Delete"
+            onclick={handleDeleteFile}
+            class="delete-icon"
+          ></lightning-button-icon>
+        </div>
+      </div>
+    </div>
+  </lightning-card>
+</template>

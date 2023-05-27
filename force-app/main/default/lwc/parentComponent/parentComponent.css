@@ -1,0 +1,24 @@
+.file-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.file-input-container label {
+  margin-right: 0.5rem;
+}
+
+.file-details {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.file-details lightning-input {
+  margin-right: 0.5rem;
+  flex: 1;
+}
+
+.delete-icon {
+  fill: #ff0000; /* Customize the delete icon color if needed */
+  cursor: pointer;
+}
