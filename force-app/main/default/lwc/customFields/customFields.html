@@ -1,0 +1,38 @@
+<template>
+  <lightning-card title="Custom Fields">
+    <div class="slds-var-p-around_medium">
+      <template for:each={customFields} for:item="field">
+        <div
+          key={field.fieldApiName}
+          class="slds-grid slds-wrap slds-grid_vertical-align-center"
+        >
+          <div class="slds-col">
+            <span class="slds-text-title_bold">{field.label}</span>
+          </div>
+        </div>
+        <div
+          key={field.fieldApiName}
+          class="slds-grid slds-wrap slds-grid_vertical-align-center"
+        >
+          <div class="slds-col">
+            <a href={field.value} target="_blank" rel="noopener noreferrer"
+              >{field.value}</a
+            >
+          </div>
+        </div>
+        <lightning-file-upload
+          key={field.fieldApiName}
+          label={field.label}
+          name={field.fieldApiName}
+          accept={field.acceptedFormats}
+          record-id={recordId}
+          onuploadfinished={handleUploadFinished}
+        >
+        </lightning-file-upload>
+      </template>
+      <template if:false={customFields}>
+        <p>No custom fields found for the account.</p>
+      </template>
+    </div>
+  </lightning-card>
+</template>

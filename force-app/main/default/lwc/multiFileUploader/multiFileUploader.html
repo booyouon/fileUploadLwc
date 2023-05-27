@@ -1,0 +1,14 @@
+<template>
+  <lightning-card title={cardTitle}>
+      <template for:each={fileFields} for:item="field">
+          <lightning-file-upload
+              key={field.fieldApiName}
+              label={field.label}
+              name={field.fieldApiName}
+              accept={field.acceptedFormats}
+              record-id={recordId}
+              onuploadfinished={handleUploadFinished}>
+          </lightning-file-upload>
+      </template>
+  </lightning-card>
+</template>

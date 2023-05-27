@@ -1,0 +1,27 @@
+<template>
+  <lightning-card title="Custom File Upload">
+    <div class="slds-var-p-around_medium">
+      <div class="slds-form-element">
+        <!--<label class="slds-form-element__label" for="fileInput"
+          >Choose File</label
+        >-->
+        <div class="slds-form-element__control">
+          <input
+            type="file"
+            id="fileInput"
+            accept={acceptedFormats}
+            onchange={handleFileChange}
+          />
+        </div>
+      </div>
+      <!--<template if:true={file}>
+              <div class="slds-m-top_medium">
+                  <span class="slds-text-title_bold">File Name: </span>{file.name}
+              </div>
+              <div class="slds-m-top_medium">
+                  <span class="slds-text-title_bold">File Size: </span>{file.size}
+              </div>
+          </template>-->
+    </div>
+  </lightning-card>
+</template>
