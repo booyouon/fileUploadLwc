@@ -60,4 +60,18 @@ export default class CustomFileUpload extends LightningElement {
         });
     }
   }
+
+  handleUploadFinished(event) {
+    const uploadedFile = event.detail.files[0];
+    const fieldName = event.target.name;
+
+    // Access file attributes
+    console.log("Field Name: " + fieldName);
+    console.log("File Name: " + uploadedFile.name);
+    console.log("Content Type: " + uploadedFile.type);
+    console.log("File Size: " + uploadedFile.size);
+    console.log("Document Id: " + uploadedFile.documentId);
+
+    this.saveFileField(uploadedFile, fieldName);
+  }
 }

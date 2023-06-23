@@ -34,7 +34,7 @@ public class FileUploaderController {
   }
 
   @AuraEnabled
-  public static void saveFileRelation(
+  public static String saveFileRelation(
     Id accountId,
     String fileName,
     String fileURL
@@ -47,5 +47,7 @@ public class FileUploaderController {
     // Update the account record
     System.debug(account);
     update account;
+
+    return fileURL;
   }
 }

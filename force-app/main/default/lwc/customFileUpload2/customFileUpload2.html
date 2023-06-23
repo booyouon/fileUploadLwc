@@ -1,0 +1,34 @@
+<template>
+  <lightning-card title="Custom File Upload 2">
+    <div class="slds-var-p-around_medium">
+      <div class="slds-form-element upload-input">
+        <div class="file-details">
+          <template if:true={file}>
+            <lightning-input value={file.name} disabled></lightning-input>
+          </template>
+          <template if:false={file}>
+            <lightning-input value="" disabled></lightning-input>
+          </template>
+          <lightning-file-upload
+            record-id={recordId}
+            onuploadfinished={handleUploadFinished}
+          >
+          </lightning-file-upload>
+        </div>
+        <input
+          type="file"
+          id="fileInput"
+          accept={acceptedFormats}
+          onchange={handleFileChange}
+        />
+      </div>
+      <div class="slds-m-top_medium">
+        <lightning-button
+          label="Save File"
+          variant="brand"
+          onclick={handleSaveFile}
+        ></lightning-button>
+      </div>
+    </div>
+  </lightning-card>
+</template>

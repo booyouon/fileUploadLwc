@@ -4,45 +4,22 @@ import { getObjectInfo } from "lightning/uiObjectInfoApi";
 import ACCOUNT_OBJECT from "@salesforce/schema/Account";
 import FIELD1_FIELD from "@salesforce/schema/Account.File_Field_1__c";
 import FIELD2_FIELD from "@salesforce/schema/Account.File_Field_2__c";
+import FIELD3_FIELD from "@salesforce/schema/Account.File_Field_3__c";
 // Add more field imports as needed
 
 import saveFileRelation from "@salesforce/apex/FileUploaderController.saveFileRelation";
 
-import { loadStyle } from "lightning/platformResourceLoader";
-import testFileUpload from "@salesforce/resourceUrl/testFileUpload";
-
-export default class customFields extends LightningElement {
-  connectedCallback() {
-    Promise.all([loadStyle(this, testFileUpload + "/app.css")])
-      .then(() => {
-        console.log("Upload success");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
+export default class customFields2 extends LightningElement {
   @api recordId;
   customFields = [];
   @api cardTitle = "File Upload";
-  @api fileFields = [
-    {
-      fieldApiName: "file_field_1__c",
-      label: "Field 1"
-    },
-    {
-      fieldApiName: "file_field_2__c",
-      label: "Field 2"
-    }
-    // Add more file fields as needed
-  ];
 
   @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
   objectInfo;
 
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [FIELD1_FIELD, FIELD2_FIELD]
+    fields: [FIELD1_FIELD, FIELD2_FIELD, FIELD3_FIELD]
   })
   wiredAccount({ error, data }) {
     if (data) {
@@ -56,6 +33,11 @@ export default class customFields extends LightningElement {
           fieldApiName: FIELD2_FIELD.fieldApiName,
           label: this.getFieldLabel(FIELD2_FIELD),
           value: getFieldValue(data, FIELD2_FIELD)
+        },
+        {
+          fieldApiName: FIELD3_FIELD.fieldApiName,
+          label: this.getFieldLabel(FIELD3_FIELD),
+          value: getFieldValue(data, FIELD3_FIELD)
         }
         // Add more fields as needed
       ];
@@ -63,12 +45,13 @@ export default class customFields extends LightningElement {
       // Handle error
     }
   }
+  record;
 
   getFieldLabel(field) {
     return this.objectInfo.data.fields[field.fieldApiName].label;
   }
 
-  handleUploadFinished(event) {
+  async handleUploadFinished(event) {
     const uploadedFile = event.detail.files[0];
     const fieldName = event.target.name;
 
@@ -79,18 +62,21 @@ export default class customFields extends LightningElement {
     console.log("File Size: " + uploadedFile.size);
     console.log("Document Id: " + uploadedFile.documentId);
 
-    this.saveFileField(uploadedFile, fieldName);
+    await this.saveFileField(uploadedFile, fieldName);
   }
 
-  saveFileField(file, name) {
+  async saveFileField(file, name) {
     if (this.recordId) {
+      let fileUrl =
+        "/sfc/servlet.shepherd/document/download/" + file.documentId;
       saveFileRelation({
         accountId: this.recordId,
         fileName: name,
-        fileURL: "/sfc/servlet.shepherd/document/download/" + file.documentId
+        fileURL: fileUrl
       })
         .then((result) => {
           console.log("File URL saved successfully:", result);
+          return fileUrl;
         })
         .catch((error) => {
           console.error("Error saving file URL:", error);

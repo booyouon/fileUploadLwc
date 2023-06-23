@@ -1,9 +1,9 @@
-.upload-input input[type="file"] {
-  visibility: hidden;
-}
-
 .file-details {
   display: flex;
   align-items: center;
   margin-top: 0.5rem;
+}
+
+.slds-file-selector__text {
+  display: none !important;
 }

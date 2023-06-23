@@ -3,6 +3,12 @@
     <div class="slds-var-p-around_medium">
       <div class="slds-form-element upload-input">
         <div class="file-details">
+          <lightning-input
+            type="file"
+            accept=".xlsx, .xls, .csv, .png, .doc, .docx, .pdf"
+            label="Attachment"
+            onchange={openfileUpload}
+          ></lightning-input>
           <template if:true={file}>
             <lightning-input
               label="Input Field"
